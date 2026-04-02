@@ -3,13 +3,13 @@
 const express = require("express");     //imports express
 const cors = require("cors");           //imports CORS (Allows frontend & backend communication)
 
+const healthRoutes = require("./routes/healthRoutes");
+
 const app = express();                  //creates Express application
 
 app.use(cors());                       //activate CORS globally
-app.use(express.json());                //request cancontain JSON
+app.use(express.json());                //request cancontain JSON                                             
 
-app.get("/api/health", (reg,res) => {               //creates the first route
-    res.json({ message: "Server is running" });     //returns JSON request
-});                                                 
+app.use("/api", healthRoutes);
 
 module.exports = app;                     //exports the app to server
