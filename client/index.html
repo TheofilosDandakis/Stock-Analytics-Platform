@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Analysis</title>
+    <title>Marketlens</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     
+    <header class='page-header'>
+        <h1>Marketlens</h1>
+        <p>Stock Analytics Dashboard</p>
+    </header>
+
+    <main class="dashboard">
+
+        <section class = "controls">
+            <button id="loadStocksButton">Load Stocks</button>
+        </section>
+
+        <section class = "stocks-section">
+            <h2>Available Stocks</h2>
+            <div id="stocksContainer"></div>
+        </section>
+
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
