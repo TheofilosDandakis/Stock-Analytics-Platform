@@ -1,26 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const stocks = [
-         {
-            symbol: "AAPL",
-            companyName: "Apple Inc.",
-            price: 212.45,
-            changePercent: 1.2
-        },
-        {
-            symbol: "MSFT",
-            companyName: "Microsoft Corp.",
-            price: 487.31,
-            changePercent: -0.4
-        },
-        {
-            symbol: "NVDA",
-            companyName: "NVIDIA Corp.",
-            price: 132.88,
-            changePercent: 2.6
-        }
-    ];
+const stocks = require("../data/mockStocks");
 
 router.get("/stocks", (req, res) => {
     res.json(stocks);
