@@ -1,68 +1,67 @@
 const searchInput = document.getElementById("searchInput");
-const stocksContainer = document.getElementById("stocksContainer");
+const moviesContainer = document.getElementById("moviesContainer");
 const sortSelect = document.getElementById("sortSelect");
 
-let allStocks = [];
+let allMovies = [];
 
-const renderStocks = (stocks) => {
-    stocksContainer.innerHTML = "";
+const renderMovies = (movies) => {
+  moviesContainer.innerHTML = "";
 
-    if (stocks.length === 0){
-        stocksContainer.innerHTML = "<p>No stocks found</p>";
-        return
-    }
+  if (movies.length === 0) {
+    moviesContainer.innerHTML = "<p>No movies found</p>";
+    return;
+  }
 
-    stocks.forEach(stock => {
-        const stockCard = document.createElement("div");
-        stockCard.classList.add("stock-card");
+  movies.forEach((movie) => {
+    const movieCard = document.createElement("div");
+    movieCard.classList.add("movie-card");
 
-        stockCard.innerHTML = `
-            <h3>${stock.symbol}</h3>
-            <p>${stock.companyName}</p>
-            <p>Price $${stock.price}</p>
-            <p style="color:${stock.changePercent >= 0 ? '#16a34a' : '#dc2626'}">
-            Change ${stock.changePercent >= 0 ? '▲' : '▼'} ${Math.abs(stock.changePercent)}%
-            </p>
-        `;
+    movieCard.innerHTML = `
+      <img src="${movie.poster}" alt="${movie.title}">
+      <h3>${movie.title}</h3>
+      <p>⭐ Rating: ${movie.rating}</p>
+      <p>📅 Release: ${movie.releaseDate}</p>
+    `;
 
-        stocksContainer.appendChild(stockCard);
-    });
-}
-
-const applyFiltersAndSort = () => {
-    const searchValue = searchInput.value.toLowerCase();
-    const sortValue = sortSelect.value;
-
-    let filteredStocks = allStocks.filter(
-        (stock) =>
-            stock.symbol.toLowerCase().includes(searchValue) || stock.companyName.toLowerCase().includes(searchValue)
-    );
-
-    if (sortValue ==="best") {
-        filteredStocks.sort((a, b) => b.changePercent - a.changePercent);}
-    else if (sortValue === "worst") {
-        filteredStocks.sort((a, b) => a.changePercent - b.changePercent);}
-    else if (sortValue === "priceHigh") {
-        filteredStocks.sort((a, b) => b.price - a.price);}
-
-    renderStocks(filteredStocks);
+    moviesContainer.appendChild(movieCard);
+  });
 };
 
+const applyFiltersAndSort = () => {
+  const searchValue = searchInput.value.toLowerCase();
+  const sortValue = sortSelect.value;
 
-const loadStocks = async () => {
-    try {
-        const response = await fetch("http://localhost:5000/api/stocks");
-        const stocks = await response.json();
-        
-        allStocks = stocks;
-        applyFiltersAndSort();
-    }
-    catch (error) {
-        console.error("Error loading stocks", error);
-    }
+  let filteredMovies = allMovies.filter(
+    (movie) =>
+      movie.title.toLowerCase().includes(searchValue)
+  );
+
+  if (sortValue === "popular") {
+    filteredMovies.sort((a, b) => b.popularity - a.popularity);
+  } else if (sortValue === "rating") {
+    filteredMovies.sort((a, b) => b.rating - a.rating);
+  } else if (sortValue === "newest") {
+    filteredMovies.sort(
+      (a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)
+    );
+  }
+
+  renderMovies(filteredMovies);
+};
+
+const loadMovies = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/api/movies");
+    const movies = await response.json();
+
+    allMovies = movies;
+    applyFiltersAndSort();
+  } catch (error) {
+    console.error("Error loading movies", error);
+  }
 };
 
 searchInput.addEventListener("input", applyFiltersAndSort);
 sortSelect.addEventListener("change", applyFiltersAndSort);
 
-loadStocks();
+loadMovies();

@@ -34,18 +34,18 @@ body {
   padding: 40px 30px;
 }
 
-.stocks-section {
+.movies-section {
   width: 100%;
 }
 
-.stocks-header {
+.movies-header {
   display: flex;
   align-items: center;
   width: 100%;
   margin-bottom: 35px;
 }
 
-.stocks-header h2 {
+.movies-header h2 {
   margin: 0;
   font-size: 24px;
 }
@@ -77,26 +77,33 @@ body {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-#stocksContainer {
+#moviesContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
 }
 
-.stock-card {
+.movie-card {
   background: white;
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.stock-card h3 {
-  margin-top: 0;
+.movie-card img {
+  width: 100%;
+  border-radius: 10px;
   margin-bottom: 12px;
+  display: block;
+}
+
+.movie-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
   font-size: 20px;
 }
 
-.stock-card p {
-  margin: 8px 0;
-  font-size: 18px;
+.movie-card p {
+  margin: 6px 0;
+  font-size: 16px;
 }
