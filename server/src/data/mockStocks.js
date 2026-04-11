@@ -3,7 +3,7 @@ const mockStocks = [
             symbol: "AAPL",
             companyName: "Apple Inc.",
             price: 212.45,
-            changePercent: 1.2
+            changePercent: +1.2
         },
         {
             symbol: "MSFT",
@@ -15,7 +15,7 @@ const mockStocks = [
             symbol: "NVDA",
             companyName: "NVIDIA Corp.",
             price: 132.88,
-            changePercent: 2.6
+            changePercent: +2.6
         }
 ];
 

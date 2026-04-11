@@ -1,72 +1,108 @@
-body{
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fa;
-    color: #222;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
 }
 
-.page-header {
-    background-color: #1f2937;
-    color: white;
-    padding: 20px;
-    text-align: center;
+.top-bar {
+  background: #1f2937;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 60px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.page-header h1 {
-    margin: 0;
-    font-size:32 px;
+.brand h1 {
+  margin: 0;
+  font-size: 42px;
 }
 
-.page-header p {
-    margin-top: 8px;
-    font-size: 16px;
+.brand p {
+  margin: 8px 0 0;
+  font-size: 22px;
+  color: #d1d5db;
 }
 
-.dashboard {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
+.search-box input {
+  width: 320px;
+  max-width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
 }
 
-.controls {
-    text-align: center;
-    font-size: 30px;
+.main-content {
+  padding: 40px 30px;
 }
 
-#loadStocksButton {
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #2563eb;
-    color: white;
-    border-radius: 6px;
+.stocks-section {
+  width: 100%;
 }
 
-#loadStocksButton:hover {
-    background-color: #1d4ed8;
+.stocks-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 35px;
 }
 
-.stocks-section h2{
-    margin-bottom: 20px;
+.stocks-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.sort-box {
+  margin-left: auto;
+}
+
+.sort-box select {
+  padding: 10px 14px;
+  width: 190px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  background: white;
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sort-box select:hover {
+  border-color: #94a3b8;
+}
+
+.sort-box select:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 #stocksContainer {
-    display: grid;
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .stock-card {
-    background-color: white;
-    padding: 18px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .stock-card h3 {
-    margin: 0 0 10px 0;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 20px;
 }
 
 .stock-card p {
-    margin: 4px 0;
+  margin: 8px 0;
+  font-size: 18px;
 }
