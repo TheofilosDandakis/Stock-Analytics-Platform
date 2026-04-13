@@ -2,7 +2,8 @@ const searchInput = document.getElementById("searchInput");
 const moviesContainer = document.getElementById("moviesContainer");
 const sortSelect = document.getElementById("sortSelect");
 
-let allMovies = [];
+let currentMovies = [];
+let searchTimeout;
 
 const renderMovies = (movies) => {
   moviesContainer.innerHTML = "";
@@ -27,26 +28,19 @@ const renderMovies = (movies) => {
   });
 };
 
-const applyFiltersAndSort = () => {
-  const searchValue = searchInput.value.toLowerCase();
+const sortMovies = (movies) => {
   const sortValue = sortSelect.value;
-
-  let filteredMovies = allMovies.filter(
-    (movie) =>
-      movie.title.toLowerCase().includes(searchValue)
-  );
+  const sortedMovies = [...movies];
 
   if (sortValue === "popular") {
-    filteredMovies.sort((a, b) => b.popularity - a.popularity);
-  } else if (sortValue === "rating") {
-    filteredMovies.sort((a, b) => b.rating - a.rating);
-  } else if (sortValue === "newest") {
-    filteredMovies.sort(
-      (a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)
-    );
+    sortedMovies.sort((a, b) => b.popularity - a.popularity);} 
+  else if (sortValue === "rating") {
+    sortedMovies.sort((a, b) => b.rating - a.rating);} 
+  else if (sortValue === "newest") {
+    sortedMovies.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
   }
 
-  renderMovies(filteredMovies);
+  return sortedMovies;
 };
 
 const loadMovies = async () => {
@@ -54,14 +48,43 @@ const loadMovies = async () => {
     const response = await fetch("http://localhost:5000/api/movies");
     const movies = await response.json();
 
-    allMovies = movies;
-    applyFiltersAndSort();
-  } catch (error) {
+    currentMovies = movies;
+    renderMovies(sortMovies(currentMovies));
+  }
+  catch (error) {
     console.error("Error loading movies", error);
   }
 };
 
-searchInput.addEventListener("input", applyFiltersAndSort);
-sortSelect.addEventListener("change", applyFiltersAndSort);
+const searchMovies = async (query) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/movies/search?q=${query}`);
+
+    const movies = await response.json();
+    
+    currentMovies = movies;
+    renderMovies(sortMovies(currentMovies));
+  }
+  catch (error) {
+    console.error("Error searching movies.", error);
+  }
+};
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.trim();
+
+  clearTimeout(searchTimeout);
+
+  searchTimeout = setTimeout(() => {
+    if (value ==="") {
+      loadMovies();}
+    else {
+      searchMovies(value);}
+  }, 400);
+});
+
+sortSelect.addEventListener("change", () => {
+  renderMovies(sortMovies(currentMovies));
+});
 
 loadMovies();
